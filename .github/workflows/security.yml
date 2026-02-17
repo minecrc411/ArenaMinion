@@ -2,9 +2,9 @@ name: Security Pipeline
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
   pull_request:
-    branches: [ main ]
+    branches: [ master ]
 
 jobs:
   security:
@@ -39,3 +39,7 @@ jobs:
         with:
           image: arena-app
           args: --severity-threshold=high
+      - name: Monitor project
+        run: snyk monitor
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
