@@ -1,10 +1,16 @@
-FROM node:20.20.0-alpine
+FROM node:20.20-alpine
+
+RUN npm install -g npm@11.6.4
+
 ENV NODE_ENV=production
 WORKDIR /usr/src/app
-COPY ["package.json", "package-lock.json*", "npm-shrinkwrap.json*", "./"]
-RUN npm install --production --silent && mv node_modules ../
+
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev
+
 COPY . .
+
 EXPOSE 3000
-RUN chown -R node /usr/src/app
 USER node
+
 CMD ["npm", "start"]
