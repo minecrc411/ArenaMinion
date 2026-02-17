@@ -1,4 +1,4 @@
-FROM node:20.20-alpine
+FROM node:22-alpine
 
 RUN npm install -g npm@11.6.4
 
